@@ -9,22 +9,17 @@ export default class Submitly extends React.Component {
        this.state = {
            displayText:""
        };
-
-       this.updateFirstName = this.updateFirstName.bind(this);
-       this.updateLastName = this.updateLastName.bind(this);
-       this.updateCodeLanguage = this.updateCodeLanguage.bind(this);
+       this.handleInputChange = this.handleInputChange.bind(this);
        this.handleDisplayText = this.handleDisplayText.bind(this);
    }
-   updateFirstName(name) {
-       this.setState({firstName: name.target.value})
-   }
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
 
-    updateLastName(name) {
-        this.setState({lastName:name.target.value})
-    }
-
-    updateCodeLanguage(lang) {
-        this.setState({language: lang.target.value})
+        this.setState({
+            [name]: value
+        });
     }
 
     handleDisplayText () {
@@ -42,19 +37,22 @@ export default class Submitly extends React.Component {
                     label="First Name: "
                     name="firstName"
                     type="text"
-                    onChange = {this.updateFirstName}
+                    value={this.state.firstName}
+                    onChange = {this.handleInputChange}
                 />
                 <FormInput
                     label="Last Name: "
                     name="lastName"
                     type="text"
-                    onChange = {this.updateLastName}
+                    value={this.state.lastName}
+                    onChange = {this.handleInputChange}
                 />
                 <FormInput
                     label="Favorite Language: "
-                    name="favoriteLanguage"
+                    name="language"
                     type="text"
-                    onChange = {this.updateCodeLanguage}
+                    value={this.state.language}
+                    onChange = {this.handleInputChange}
                 />
                 <Button
                     text="Submit"
